@@ -5,984 +5,564 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🇳🇿 新西兰自驾攻略 · 4月30日出发</title>
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;600;700&display=swap');
-
-* { margin:0; padding:0; box-sizing:border-box; }
-body {
-  font-family: 'Noto Sans SC', -apple-system, sans-serif;
-  background: linear-gradient(135deg, #0f1729 0%, #1a2a4a 50%, #0d3b66 100%);
-  color: #e8ecf1;
-  min-height: 100vh;
-}
-
-.hero {
-  text-align:center;
-  padding: 60px 20px 40px;
-  background: linear-gradient(180deg, rgba(13,59,102,0.8) 0%, transparent 100%);
-  position: relative;
-}
-.hero::before {
-  content: '';
-  position: absolute;
-  top: 0; left: 0; right: 0; bottom: 0;
-  background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y="50" font-size="60" opacity="0.03">🏔️</text></svg>') repeat;
-  pointer-events: none;
-}
-.hero h1 {
-  font-size: 2.4em;
-  font-weight: 700;
-  background: linear-gradient(135deg, #6dd5ed, #2193b0, #6dd5ed);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  margin-bottom: 8px;
-}
-.hero .subtitle {
-  font-size: 1.1em;
-  color: #8ca8c4;
-  font-weight: 300;
-}
-.hero .trip-info {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 20px;
-  flex-wrap: wrap;
-}
-.hero .trip-info span {
-  background: rgba(255,255,255,0.08);
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-size: 0.9em;
-  backdrop-filter: blur(10px);
-}
-
-.container { max-width: 1200px; margin: 0 auto; padding: 0 20px 60px; }
-
-/* Navigation tabs */
-.nav-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 8px;
-  margin: 30px 0;
-  flex-wrap: wrap;
-  position: sticky;
-  top: 0;
-  z-index: 100;
-  background: rgba(15,23,41,0.95);
-  padding: 15px 10px;
-  backdrop-filter: blur(20px);
-  border-radius: 0 0 16px 16px;
-}
-.nav-tabs a {
-  color: #8ca8c4;
-  text-decoration: none;
-  padding: 8px 18px;
-  border-radius: 20px;
-  font-size: 0.85em;
-  transition: all 0.3s;
-  border: 1px solid rgba(255,255,255,0.1);
-}
-.nav-tabs a:hover, .nav-tabs a.active {
-  background: rgba(109,213,237,0.15);
-  color: #6dd5ed;
-  border-color: rgba(109,213,237,0.3);
-}
-
-/* Section headers */
-.section { margin: 50px 0; }
-.section-header {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  margin-bottom: 25px;
-}
-.section-header .icon {
-  width: 48px; height: 48px;
-  border-radius: 14px;
-  display: flex; align-items: center; justify-content: center;
-  font-size: 1.5em;
-}
-.section-header h2 {
-  font-size: 1.5em;
-  font-weight: 600;
-}
-.section-header .desc {
-  font-size: 0.85em;
-  color: #7a96b2;
-}
-
-/* Day cards */
-.day-card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 16px;
-  padding: 28px;
-  margin-bottom: 20px;
-  transition: all 0.3s;
-}
-.day-card:hover {
-  background: rgba(255,255,255,0.07);
-  border-color: rgba(109,213,237,0.2);
-  transform: translateY(-2px);
-}
-.day-num {
-  display: inline-block;
-  background: linear-gradient(135deg, #2193b0, #6dd5ed);
-  color: #0f1729;
-  font-weight: 700;
-  padding: 4px 14px;
-  border-radius: 20px;
-  font-size: 0.85em;
-  margin-bottom: 12px;
-}
-.day-title {
-  font-size: 1.25em;
-  font-weight: 600;
-  margin-bottom: 6px;
-}
-.day-route {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  background: rgba(109,213,237,0.1);
-  padding: 4px 12px;
-  border-radius: 12px;
-  font-size: 0.8em;
-  color: #6dd5ed;
-  margin-bottom: 15px;
-}
-
-/* Spot cards inside day */
-.spots-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 14px;
-  margin-top: 15px;
-}
-.spot {
-  background: rgba(255,255,255,0.05);
-  border-radius: 12px;
-  padding: 16px;
-  border: 1px solid rgba(255,255,255,0.06);
-}
-.spot .name {
-  font-weight: 600;
-  font-size: 1em;
-  margin-bottom: 4px;
-}
-.spot .type {
-  font-size: 0.75em;
-  padding: 2px 8px;
-  border-radius: 8px;
-  display: inline-block;
-  margin-bottom: 6px;
-}
-.spot .type.scenic { background: rgba(76,175,80,0.2); color: #81c784; }
-.spot .type.food { background: rgba(255,152,0,0.2); color: #ffb74d; }
-.spot .type.activity { background: rgba(156,39,176,0.2); color: #ce93d8; }
-.spot .type.cultural { background: rgba(33,150,243,0.2); color: #64b5f6; }
-.spot .desc { font-size: 0.85em; color: #9bb5cc; line-height: 1.5; }
-.spot .tip {
-  margin-top: 8px;
-  font-size: 0.8em;
-  color: #ffb74d;
-  padding: 6px 10px;
-  background: rgba(255,152,0,0.08);
-  border-radius: 8px;
-}
-
-/* Food section */
-.food-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
-  gap: 16px;
-}
-.food-card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
-  padding: 22px;
-  transition: all 0.3s;
-}
-.food-card:hover {
-  background: rgba(255,255,255,0.07);
-  transform: translateY(-2px);
-}
-.food-card .city {
-  font-size: 0.75em;
-  text-transform: uppercase;
-  letter-spacing: 1px;
-  color: #6dd5ed;
-  margin-bottom: 6px;
-}
-.food-card .fname {
-  font-size: 1.1em;
-  font-weight: 600;
-  margin-bottom: 4px;
-}
-.food-card .cuisine {
-  font-size: 0.8em;
-  color: #ffb74d;
-  margin-bottom: 8px;
-}
-.food-card .fdesc {
-  font-size: 0.85em;
-  color: #9bb5cc;
-  line-height: 1.5;
-}
-.food-card .price {
-  display: inline-block;
-  margin-top: 8px;
-  font-size: 0.8em;
-  background: rgba(255,255,255,0.08);
-  padding: 3px 10px;
-  border-radius: 8px;
-}
-
-/* Map section */
-.map-container {
-  border-radius: 16px;
-  overflow: hidden;
-  border: 1px solid rgba(255,255,255,0.1);
-  margin: 20px 0;
-}
-.map-container iframe {
-  width: 100%;
-  height: 500px;
-  border: none;
-}
-
-/* Route table */
-.route-table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: 20px 0;
-}
-.route-table th {
-  background: rgba(109,213,237,0.15);
-  padding: 12px 16px;
-  text-align: left;
-  font-weight: 500;
-  font-size: 0.85em;
-  border-bottom: 1px solid rgba(255,255,255,0.1);
-}
-.route-table td {
-  padding: 12px 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.05);
-  font-size: 0.9em;
-}
-.route-table tr:hover td {
-  background: rgba(255,255,255,0.03);
-}
-
-/* Tips section */
-.tips-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
-}
-.tip-card {
-  background: rgba(255,255,255,0.04);
-  border: 1px solid rgba(255,255,255,0.08);
-  border-radius: 14px;
-  padding: 22px;
-}
-.tip-card .tip-icon { font-size: 1.8em; margin-bottom: 10px; }
-.tip-card .tip-title { font-weight: 600; margin-bottom: 6px; }
-.tip-card .tip-content { font-size: 0.85em; color: #9bb5cc; line-height: 1.6; }
-
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;background:#0a0f1a;color:#c4d4e4;line-height:1.7}
+a{color:#6dd5ed;text-decoration:none}
+a:hover{text-decoration:underline}
+.container{max-width:900px;margin:0 auto;padding:20px}
+/* Hero */
+.hero{text-align:center;padding:60px 20px 40px;background:linear-gradient(135deg,#0a0f1a 0%,#1a2332 50%,#0a0f1a 100%)}
+.hero h1{font-size:2.2em;background:linear-gradient(135deg,#6dd5ed,#2193b0);-webkit-background-clip:text;-webkit-text-fill-color:transparent;margin-bottom:12px}
+.hero-tags{display:flex;flex-wrap:wrap;justify-content:center;gap:8px;margin-top:16px}
+.hero-tags span{background:rgba(109,213,237,0.1);border:1px solid rgba(109,213,237,0.2);border-radius:20px;padding:6px 16px;font-size:0.85em;color:#8ca8c4}
+/* Flight banner */
+.flight-banner{background:linear-gradient(135deg,rgba(33,147,176,0.15),rgba(109,213,237,0.1));border:1px solid rgba(109,213,237,0.2);border-radius:16px;padding:24px;margin:20px 0 30px;display:flex;align-items:flex-start;gap:16px}
+.flight-banner .icon{font-size:2em}
+.flight-banner h3{font-weight:600;margin-bottom:8px;color:#6dd5ed}
+.flight-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;font-size:0.9em}
+.flight-card{background:rgba(255,255,255,0.05);padding:12px;border-radius:10px}
+.flight-card .label{color:#6dd5ed;font-weight:600;margin-bottom:4px}
+.flight-card .info{color:#c4d4e4}
+.flight-card .sub{color:#8ca8c4;font-size:0.85em}
+.flight-tip{margin-top:10px;font-size:0.8em;color:#ffb74d;background:rgba(255,152,0,0.08);padding:8px 12px;border-radius:8px}
 /* Season banner */
-.season-banner {
-  background: linear-gradient(135deg, rgba(255,152,0,0.15), rgba(255,87,34,0.1));
-  border: 1px solid rgba(255,152,0,0.2);
-  border-radius: 16px;
-  padding: 24px;
-  margin: 30px 0;
-  display: flex;
-  align-items: flex-start;
-  gap: 16px;
-}
-.season-banner .season-icon { font-size: 2em; }
-.season-banner h3 { font-weight: 600; margin-bottom: 6px; color: #ffb74d; }
-.season-banner p { font-size: 0.9em; color: #c4a882; line-height: 1.6; }
-
+.season{background:rgba(255,152,0,0.08);border:1px solid rgba(255,152,0,0.15);border-radius:16px;padding:20px 24px;margin:0 0 30px;display:flex;align-items:center;gap:16px}
+.season .icon{font-size:2.5em}
+/* Section */
+.section{margin-bottom:40px}
+.section-header{display:flex;align-items:center;gap:16px;margin-bottom:24px}
+.section-header .icon{width:48px;height:48px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:1.5em;flex-shrink:0}
+.section-header h2{font-size:1.4em;color:#e8f0fe}
+.section-header .desc{font-size:0.85em;color:#8ca8c4;margin-top:2px}
+/* Day card */
+.day-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:0;margin-bottom:24px;overflow:hidden}
+.day-header{background:linear-gradient(135deg,rgba(33,147,176,0.2),rgba(109,213,237,0.08));padding:16px 24px;display:flex;align-items:center;gap:12px}
+.day-num{background:linear-gradient(135deg,#2193b0,#6dd5ed);color:#fff;width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-weight:700;font-size:0.95em;flex-shrink:0}
+.day-title{font-size:1.1em;font-weight:600;color:#e8f0fe}
+.day-date{font-size:0.8em;color:#8ca8c4}
+.day-body{padding:20px 24px}
+/* Attraction */
+.attraction{margin-bottom:20px;padding-bottom:20px;border-bottom:1px solid rgba(255,255,255,0.05)}
+.attraction:last-child{border-bottom:none;margin-bottom:0;padding-bottom:0}
+.attr-name{font-weight:600;color:#e8f0fe;font-size:1.05em;margin-bottom:4px}
+.attr-name a{color:#6dd5ed}
+.attr-desc{font-size:0.9em;color:#8ca8c4;margin-bottom:8px}
+.attr-dist{display:inline-flex;align-items:center;gap:4px;background:rgba(109,213,237,0.1);border:1px solid rgba(109,213,237,0.15);border-radius:8px;padding:3px 10px;font-size:0.8em;color:#6dd5ed;margin:4px 4px 8px 0}
+.attr-img{width:100%;border-radius:12px;margin:10px 0;max-height:300px;object-fit:cover}
+.attr-video{position:relative;width:100%;padding-bottom:56.25%;border-radius:12px;overflow:hidden;margin:10px 0}
+.attr-video iframe{position:absolute;top:0;left:0;width:100%;height:100%;border:none;border-radius:12px}
+/* Map link button */
+.map-link{display:inline-flex;align-items:center;gap:6px;background:rgba(52,168,83,0.12);border:1px solid rgba(52,168,83,0.25);border-radius:8px;padding:4px 12px;font-size:0.8em;color:#34a853;transition:all 0.2s}
+.map-link:hover{background:rgba(52,168,83,0.2);text-decoration:none}
+/* Restaurant */
+.rest-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.rest-img{width:100%;height:180px;object-fit:cover}
+.rest-body{padding:16px}
+.rest-name{font-weight:600;color:#e8f0fe;font-size:1em;margin-bottom:4px}
+.rest-info{font-size:0.85em;color:#8ca8c4}
+.rest-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+/* Route map SVG */
+.route-map{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:16px;padding:24px;margin-bottom:30px;text-align:center}
+.route-map svg{max-width:100%;height:auto}
+/* Tips */
+.tips-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px}
+.tip-card{background:rgba(255,255,255,0.03);border:1px solid rgba(255,255,255,0.06);border-radius:14px;padding:20px}
+.tip-icon{font-size:1.8em;margin-bottom:8px}
+.tip-title{font-weight:600;color:#e8f0fe;margin-bottom:8px}
+.tip-content{font-size:0.88em;color:#8ca8c4;line-height:1.7}
+/* Nav */
+.nav{position:sticky;top:0;z-index:100;background:rgba(10,15,26,0.95);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,0.05);padding:12px 0}
+.nav-inner{max-width:900px;margin:0 auto;display:flex;gap:16px;overflow-x:auto;padding:0 20px;scrollbar-width:none}
+.nav-inner::-webkit-scrollbar{display:none}
+.nav-inner a{color:#8ca8c4;font-size:0.85em;white-space:nowrap;padding:6px 14px;border-radius:8px;transition:all 0.2s}
+.nav-inner a:hover,.nav-inner a.active{color:#6dd5ed;background:rgba(109,213,237,0.1);text-decoration:none}
 /* Footer */
-.footer {
-  text-align: center;
-  padding: 40px;
-  color: #5a7a96;
-  font-size: 0.8em;
-}
-
-@media (max-width: 768px) {
-  .hero h1 { font-size: 1.6em; }
-  .hero .trip-info { gap: 10px; }
-  .spots-grid, .food-grid, .tips-grid { grid-template-columns: 1fr; }
-  .day-card { padding: 20px; }
-  .nav-tabs a { font-size: 0.75em; padding: 6px 12px; }
+.footer{text-align:center;padding:40px 20px;color:#4a5568;font-size:0.8em;border-top:1px solid rgba(255,255,255,0.05)}
+@media(max-width:600px){
+  .hero h1{font-size:1.6em}
+  .flight-grid{grid-template-columns:1fr}
+  .tips-grid,.rest-grid{grid-template-columns:1fr}
+  .day-body{padding:16px}
 }
 </style>
 </head>
 <body>
+<!-- Navigation -->
+<nav class="nav">
+<div class="nav-inner">
+<a href="#route-map">🗺️ 路线图</a>
+<a href="#itinerary">📋 行程</a>
+<a href="#food">🍽️ 美食</a>
+<a href="#tips">💡 贴士</a>
+</div>
+</nav>
 
+<!-- Hero -->
 <div class="hero">
-  <h1>🇳🇿 新西兰自驾攻略</h1>
-  <div class="subtitle">四个女生的南北岛环游 · 2026年4月30日出发</div>
-  <div class="trip-info">
-    <span>✈️ CZ305 广州→奥克兰 4/30</span>
-    <span>✈️ CZ306 奥克兰→广州 5/9</span>
-    <span>🗓️ 10天9晚</span>
-    <span>🚗 自驾环游</span>
-    <span>🍂 秋季（4-5月）</span>
-  </div>
+<h1>🇳🇿 新西兰 10 天自驾攻略</h1>
+<p style="color:#8ca8c4;font-size:1.1em">四位女生南北岛深度环游</p>
+<div class="hero-tags">
+<span>✈️ CZ305 广州→奥克兰 4/30</span>
+<span>✈️ CZ306 奥克兰→广州 5/9</span>
+<span>🗓️ 10天9晚</span>
+<span>🍂 深秋 8-16°C</span>
+<span>🚗 自驾 ≈1,854km</span>
+</div>
 </div>
 
 <div class="container">
 
-<nav class="nav-tabs">
-  <a href="#season">🍂 季节提醒</a>
-  <a href="#itinerary">📋 行程</a>
-  <a href="#food">🍽️ 美食</a>
-  <a href="#map">🗺️ 地图</a>
-  <a href="#routes">🧭 路线</a>
-  <a href="#tips">💡 贴士</a>
-</nav>
+<!-- Flight Banner -->
+<div class="flight-banner">
+<div class="icon">✈️</div>
+<div style="flex:1">
+<h3>航班信息 · 南方航空</h3>
+<div class="flight-grid">
+<div class="flight-card">
+<div class="label">去程 CZ305</div>
+<div class="info">4月30日（周四）00:50 起飞</div>
+<div class="info">广州白云T2 → 奥克兰 15:40到</div>
+<div class="sub">座位 58K · 约11小时</div>
+</div>
+<div class="flight-card">
+<div class="label">回程 CZ306</div>
+<div class="info">5月9日（周六）21:20 起飞</div>
+<div class="info">奥克兰 → 广州白云T2 5/10 05:05到</div>
+<div class="sub">座位 43K · 约12小时</div>
+</div>
+</div>
+<div class="flight-tip">💡 去程是凌晨航班（4/30 00:50），需要4/29晚上到白云机场T2。回程5/9晚上21:20，当天白天还可以玩，傍晚到奥克兰机场即可。</div>
+</div>
+</div>
 
 <!-- Season Banner -->
-<div id="season" class="season-banner">
-  <div class="season-icon">🍂</div>
-  <div>
-    <h3>4月底-5月 · 新西兰秋季须知</h3>
-    <p>
-      这是新西兰的深秋，正值<strong>秋叶最美季节</strong>（箭镇、瓦纳卡金色一片！）。日均温度 8-16°C，南岛更冷（5-12°C）。
-      日照时间约 10 小时（7:00-17:00），请安排好日落前到达住宿。带<strong>保暖外套、防风防水夹克</strong>。
-      部分高山步道可能因初雪关闭，出发前查 DOC 网站。这也是旅游淡季，住宿和租车价格更优！
-    </p>
-  </div>
+<div class="season">
+<div class="icon">🍂</div>
+<div>
+<strong style="color:#ffb74d">深秋季节 · 4月底-5月初</strong>
+<div style="font-size:0.9em;color:#8ca8c4;margin-top:4px">气温 8-16°C · 箭镇秋叶巅峰期 · 日照约 7:00-17:15 · 旅游淡季价格更优</div>
 </div>
-
-
-<!-- Flight Info Banner -->
-<div style="background: linear-gradient(135deg, rgba(33,147,176,0.15), rgba(109,213,237,0.1)); border: 1px solid rgba(109,213,237,0.2); border-radius: 16px; padding: 24px; margin: 0 0 30px; display: flex; align-items: flex-start; gap: 16px;">
-  <div style="font-size: 2em">✈️</div>
-  <div>
-    <h3 style="font-weight: 600; margin-bottom: 8px; color: #6dd5ed;">航班信息 · 南方航空</h3>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 16px; font-size: 0.9em;">
-      <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px;">
-        <div style="color: #6dd5ed; font-weight: 600; margin-bottom: 4px;">去程 CZ305</div>
-        <div style="color: #c4d4e4;">4月30日（周四）00:50 起飞</div>
-        <div style="color: #c4d4e4;">广州白云T2 → 奥克兰 15:40到</div>
-        <div style="color: #8ca8c4; font-size: 0.85em;">座位 58K · 约11小时</div>
-      </div>
-      <div style="background: rgba(255,255,255,0.05); padding: 12px; border-radius: 10px;">
-        <div style="color: #6dd5ed; font-weight: 600; margin-bottom: 4px;">回程 CZ306</div>
-        <div style="color: #c4d4e4;">5月9日（周六）21:20 起飞</div>
-        <div style="color: #c4d4e4;">奥克兰 → 广州白云T2 5/10 05:05到</div>
-        <div style="color: #8ca8c4; font-size: 0.85em;">座位 43K · 约12小时</div>
-      </div>
-    </div>
-    <div style="margin-top: 10px; font-size: 0.8em; color: #ffb74d; background: rgba(255,152,0,0.08); padding: 8px 12px; border-radius: 8px;">
-      💡 去程是凌晨航班（4/30 00:50），需要4/29晚上到白云机场T2。回程5/9晚上21:20，当天白天还可以玩，傍晚到奥克兰机场即可。
-    </div>
-  </div>
 </div>
+<!-- Route Map Section -->
+<div id="route-map" class="section">
+<div class="section-header">
+<div class="icon" style="background:rgba(52,168,83,0.15)">🗺️</div>
+<div><h2>行程路线图</h2><div class="desc">10天环游北岛+南岛 · 总里程 ≈1,854km</div></div>
+</div>
+<div class="route-map">
+<svg viewBox="0 0 500 750" xmlns="http://www.w3.org/2000/svg" style="max-width:450px">
+<!-- New Zealand outline (simplified) -->
+<!-- North Island -->
+<path d="M280,80 C300,90 320,110 330,140 C340,170 335,190 340,220 C345,250 355,270 350,300 C345,320 330,340 310,350 C290,360 270,355 260,350 C250,345 240,330 235,310 C230,290 240,270 245,250 C250,230 255,210 250,190 C245,170 250,150 260,130 C265,115 270,95 280,80Z" fill="rgba(109,213,237,0.08)" stroke="rgba(109,213,237,0.3)" stroke-width="1.5"/>
+<!-- South Island -->
+<path d="M230,400 C250,390 270,395 285,410 C300,425 310,440 315,460 C320,480 315,510 305,540 C295,570 280,600 260,630 C250,645 235,655 220,650 C205,645 195,630 190,610 C185,590 188,565 195,540 C200,520 205,500 210,480 C215,460 215,435 220,415 C223,405 225,400 230,400Z" fill="rgba(109,213,237,0.08)" stroke="rgba(109,213,237,0.3)" stroke-width="1.5"/>
 
+<!-- Route line - North Island -->
+<path d="M305,130 L290,215 L295,245 L280,310" stroke="#6dd5ed" stroke-width="2.5" fill="none" stroke-dasharray="8,4" opacity="0.8"/>
+<!-- Flight WLG -> CHC -->
+<path d="M270,345 L250,420" stroke="#ffb74d" stroke-width="2" fill="none" stroke-dasharray="4,6" opacity="0.6"/>
+<!-- Route line - South Island -->
+<path d="M250,420 L240,470 L235,510 L230,540 L245,560 L240,530" stroke="#6dd5ed" stroke-width="2.5" fill="none" stroke-dasharray="8,4" opacity="0.8"/>
+
+<!-- City markers and labels -->
+<!-- Auckland -->
+<circle cx="305" cy="130" r="8" fill="#2193b0" stroke="#6dd5ed" stroke-width="2"/>
+<text x="320" y="125" fill="#e8f0fe" font-size="13" font-weight="600">奥克兰 Auckland</text>
+<text x="320" y="140" fill="#8ca8c4" font-size="10">Day 1 · 出发点</text>
+
+<!-- Hobbiton/Rotorua -->
+<circle cx="290" cy="215" r="6" fill="#2193b0" stroke="#6dd5ed" stroke-width="2"/>
+<text x="305" y="210" fill="#e8f0fe" font-size="11" font-weight="600">霍比屯 → 罗托鲁瓦</text>
+<text x="305" y="223" fill="#8ca8c4" font-size="9">Day 2 · 167km+69km</text>
+
+<!-- Taupo -->
+<circle cx="295" cy="245" r="6" fill="#2193b0" stroke="#6dd5ed" stroke-width="2"/>
+<text x="310" y="240" fill="#e8f0fe" font-size="11" font-weight="600">陶波 Taupo</text>
+<text x="310" y="253" fill="#8ca8c4" font-size="9">Day 3 · 80km</text>
+
+<!-- Wellington -->
+<circle cx="270" cy="345" r="6" fill="#2193b0" stroke="#6dd5ed" stroke-width="2"/>
+<text x="160" y="342" fill="#e8f0fe" font-size="11" font-weight="600">惠灵顿</text>
+<text x="160" y="355" fill="#8ca8c4" font-size="9">Day 4 · 373km</text>
+
+<!-- Flight indicator -->
+<text x="220" y="385" fill="#ffb74d" font-size="10">✈️ 飞基督城</text>
+
+<!-- Christchurch -->
+<circle cx="250" cy="420" r="6" fill="#2193b0" stroke="#6dd5ed" stroke-width="2"/>
+<text x="265" y="418" fill="#e8f0fe" font-size="11" font-weight="600">基督城</text>
+<text x="265" y="431" fill="#8ca8c4" font-size="9">Day 5/10</text>
+
+<!-- Lake Tekapo -->
+<circle cx="240" cy="470" r="6" fill="#2193b0" stroke="#6dd5ed" stroke-width="2"/>
+<text x="255" y="468" fill="#e8f0fe" font-size="11" font-weight="600">蒂卡波湖</text>
+<text x="255" y="481" fill="#8ca8c4" font-size="9">Day 5 · 226km</text>
+
+<!-- Mt Cook -->
+<circle cx="235" cy="510" r="5" fill="#ffb74d" stroke="#ffb74d" stroke-width="1.5"/>
+<text x="155" y="508" fill="#e8f0fe" font-size="11" font-weight="600">库克山</text>
+<text x="155" y="521" fill="#8ca8c4" font-size="9">Day 6</text>
+
+<!-- Queenstown -->
+<circle cx="230" cy="540" r="8" fill="#e91e63" stroke="#ff5252" stroke-width="2"/>
+<text x="245" y="538" fill="#e8f0fe" font-size="13" font-weight="600">皇后镇</text>
+<text x="245" y="553" fill="#8ca8c4" font-size="10">Day 6-8 · 重点！</text>
+
+<!-- Milford Sound -->
+<circle cx="195" cy="530" r="5" fill="#2193b0" stroke="#6dd5ed" stroke-width="1.5"/>
+<text x="130" y="540" fill="#e8f0fe" font-size="10">米尔福德峡湾</text>
+<text x="130" y="552" fill="#8ca8c4" font-size="9">Day 8 · 287km</text>
+
+<!-- Arrowtown/Wanaka -->
+<circle cx="245" cy="560" r="5" fill="#ff9800" stroke="#ffb74d" stroke-width="1.5"/>
+<text x="260" y="558" fill="#e8f0fe" font-size="11" font-weight="600">箭镇🍂 → 瓦纳卡</text>
+<text x="260" y="571" fill="#8ca8c4" font-size="9">Day 9 · 秋叶！</text>
+
+<!-- Legend -->
+<rect x="20" y="680" width="460" height="55" rx="8" fill="rgba(255,255,255,0.03)" stroke="rgba(255,255,255,0.06)"/>
+<line x1="40" y1="700" x2="70" y2="700" stroke="#6dd5ed" stroke-width="2.5" stroke-dasharray="8,4"/>
+<text x="78" y="704" fill="#8ca8c4" font-size="10">自驾路线</text>
+<line x1="160" y1="700" x2="190" y2="700" stroke="#ffb74d" stroke-width="2" stroke-dasharray="4,6"/>
+<text x="198" y="704" fill="#8ca8c4" font-size="10">国内航班</text>
+<circle cx="300" cy="700" r="5" fill="#e91e63"/>
+<text x="310" y="704" fill="#8ca8c4" font-size="10">重点城市</text>
+<circle cx="390" cy="700" r="4" fill="#ff9800"/>
+<text x="400" y="704" fill="#8ca8c4" font-size="10">秋叶打卡</text>
+<text x="40" y="722" fill="#6dd5ed" font-size="10">总里程 ≈1,854km · 油费约NZ$93/人 · 最长路段: 陶波→惠灵顿 373km/4h38m</text>
+</svg>
+</div>
+</div>
 <!-- Itinerary Section -->
 <div id="itinerary" class="section">
-  <div class="section-header">
-    <div class="icon" style="background:rgba(109,213,237,0.15)">📋</div>
-    <div><h2>10天行程规划</h2><div class="desc">北岛 4 天 + 南岛 6 天，经典精华路线</div></div>
-  </div>
-
-  <!-- Day 1 -->
-  <div class="day-card">
-    <div class="day-num">DAY 1 · 4月30日</div>
-    <div class="day-title">抵达奥克兰 Auckland</div>
-    <div class="day-route">✈️ CZ305 广州白云T2 00:50起飞 → 奥克兰 15:40到达 · 座位58K</div>
-    <div class="spots-grid">
-      <div class="spot">
-        <div class="name">🏙️ 天空塔 Sky Tower</div>
-        <div class="type scenic">地标景点</div>
-        <div class="desc">南半球最高的独立建筑（328米），登顶俯瞰奥克兰全景。胆大可以尝试 SkyWalk 或 SkyJump！</div>
-        <div class="tip">💡 傍晚登塔看日落+夜景最佳</div>
-      </div>
-      <div class="spot">
-        <div class="name">⛵ 帆船之都码头 Viaduct Harbour</div>
-        <div class="type scenic">滨海漫步</div>
-        <div class="desc">奥克兰最有情调的海滨区，沿途餐厅酒吧林立，适合到达后放松散步。</div>
-      </div>
-      <div class="spot">
-        <div class="name">🌋 伊甸山 Mount Eden</div>
-        <div class="type scenic">自然风光</div>
-        <div class="desc">死火山口，奥克兰最高自然点，360度无遮挡城市+海景。免费！日落绝佳。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 2 -->
-  <div class="day-card">
-    <div class="day-num">DAY 2 · 5月1日</div>
-    <div class="day-title">奥克兰 → 霍比屯 → 罗托鲁瓦</div>
-    <div class="day-route">🚗 奥克兰→霍比屯 167km/1h53m → 罗托鲁瓦 69km/1h</div>
-    <div class="spots-grid">
-      <div class="spot">
-        <div class="name">🧙 霍比屯 Hobbiton</div>
-        <div class="type cultural">电影取景地</div>
-        <div class="desc">《指环王》和《霍比特人》的拍摄地！44个霍比特人洞穴完整保留，秋天金色氛围满分。含导览约2小时。</div>
-        <div class="tip">💡 必须提前预订！成人NZ$89。含一杯绿龙酒馆饮品</div>
-      </div>
-      <div class="spot">
-        <div class="name">♨️ 罗托鲁瓦地热公园 Te Puia</div>
-        <div class="type activity">地热奇观</div>
-        <div class="desc">波胡图间歇泉每天喷发20次以上，高达30米。还能体验毛利文化表演和猕猴桃鸟夜间馆。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 3 -->
-  <div class="day-card">
-    <div class="day-num">DAY 3 · 5月2日</div>
-    <div class="day-title">罗托鲁瓦 → 陶波</div>
-    <div class="day-route">🚗 罗托鲁瓦→陶波 80km/59m</div>
-    <div class="spots-grid">
-      <div class="spot">
-        <div class="name">🌿 红木森林 Redwoods Treewalk</div>
-        <div class="type activity">森林探险</div>
-        <div class="desc">悬挂在百年红木之间的高空步道，白天可以呼吸纯净空气，晚上有灯光版更梦幻。</div>
-      </div>
-      <div class="spot">
-        <div class="name">💧 胡卡瀑布 Huka Falls</div>
-        <div class="type scenic">自然奇观</div>
-        <div class="desc">怀卡托河每秒22万升水涌过狭窄岩缝，形成壮观的蓝绿色瀑布。免费景点！步道15分钟。</div>
-      </div>
-      <div class="spot">
-        <div class="name">🌊 陶波湖 Lake Taupo</div>
-        <div class="type scenic">火山湖</div>
-        <div class="desc">新西兰最大湖泊，面积=新加坡。可以坐船去看毛利岩雕（Mine Bay Maori Rock Carvings）。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 4 -->
-  <div class="day-card">
-    <div class="day-num">DAY 4 · 5月3日</div>
-    <div class="day-title">陶波 → 惠灵顿（可选汤加里罗）</div>
-    <div class="day-route">🚗 陶波→惠灵顿 373km/4h38m（走5号公路可绕经汤加里罗）</div>
-    <div class="spots-grid">
-      <div class="spot">
-        <div class="name">🌋 汤加里罗国家公园</div>
-        <div class="type scenic">世界遗产</div>
-        <div class="desc">末日火山原型！Alpine Crossing 是新西兰最著名的一日步道（秋冬可能关闭，需提前查DOC）。沿途能看到火山口蓝湖。</div>
-        <div class="tip">💡 5月可能下雪封路，查 greatwalks.co.nz 确认开放</div>
-      </div>
-      <div class="spot">
-        <div class="name">🏛️ 惠灵顿 Te Papa 博物馆</div>
-        <div class="type cultural">必去博物馆</div>
-        <div class="desc">新西兰国家博物馆，互动性超强。毛利文化+自然历史+地震模拟，可以玩半天。免费入场！</div>
-      </div>
-      <div class="spot">
-        <div class="name">🚡 惠灵顿缆车 Wellington Cable Car</div>
-        <div class="type activity">城市体验</div>
-        <div class="desc">从Lambton Quay到Kelburn山顶，5分钟车程能俯瞰整个惠灵顿港湾。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 5 -->
-  <div class="day-card">
-    <div class="day-num">DAY 5 · 5月4日</div>
-    <div class="day-title">惠灵顿 ✈️ 基督城 → 蒂卡波湖</div>
-    <div class="day-route">✈️ 惠灵顿→基督城 1h飞 / 🚗 基督城→蒂卡波 226km/2h54m</div>
-    <div class="spots-grid">
-      <div class="spot">
-        <div class="name">⛪ 好牧羊人教堂 Church of the Good Shepherd</div>
-        <div class="type scenic">星空圣地</div>
-        <div class="desc">蒂卡波湖畔的石砌小教堂，透过窗户看到的湖光山色就是一幅画。这里是世界最佳观星地之一！</div>
-        <div class="tip">💡 蒂卡波是暗天保护区，秋天晴夜能看到银河和南十字星</div>
-      </div>
-      <div class="spot">
-        <div class="name">🌌 约翰山天文台观星</div>
-        <div class="type activity">暗天体验</div>
-        <div class="desc">约翰山天文台提供专业天文望远镜观星团，南半球独有星空。需提前预约（Earth & Sky Tours）。</div>
-      </div>
-      <div class="spot">
-        <div class="name">💎 蒂卡波湖 Lake Tekapo</div>
-        <div class="type scenic">冰川湖</div>
-        <div class="desc">因冰川岩粉折射呈现不可思议的蓝绿色。秋天周边金色树林倒映湖中，相机拍不出十分之一的美。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 6 -->
-  <div class="day-card">
-    <div class="day-num">DAY 6 · 5月5日</div>
-    <div class="day-title">蒂卡波 → 库克山 → 皇后镇</div>
-    <div class="day-route">🚗 蒂卡波→库克山 106km/1h20m → 皇后镇 256km/3h08m</div>
-    <div class="spots-grid">
-      <div class="spot">
-        <div class="name">🏔️ 库克山国家公园 Mt Cook</div>
-        <div class="type scenic">冰川徒步</div>
-        <div class="desc">新西兰最高峰（3724m）！Hooker Valley Track 步道（3h往返）可以近距离看冰川湖和雪山。平坦好走。</div>
-        <div class="tip">💡 5月可能有积雪，穿防水徒步鞋。看天气窗口出发</div>
-      </div>
-      <div class="spot">
-        <div class="name">💙 普卡基湖 Lake Pukaki</div>
-        <div class="type scenic">绝美公路</div>
-        <div class="desc">8号公路沿普卡基湖驾驶是南岛最美公路之一，奶蓝色湖面+库克山倒影，请准备好相机和耐心（会不停想停车拍照）。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 7 -->
-  <div class="day-card">
-    <div class="day-num">DAY 7 · 5月6日</div>
-    <div class="day-title">皇后镇一日</div>
-    <div class="day-route">📍 皇后镇 Queenstown · 户外探险之都</div>
-    <div class="spots-grid">
-      <div class="spot">
-        <div class="name">🚡 天空缆车 Skyline Gondola</div>
-        <div class="type activity">必做体验</div>
-        <div class="desc">登上 Bob's Peak，整个皇后镇+瓦卡蒂普湖+卓越山脉尽收眼底。山顶有 Luge 滑道车（超好玩！3次起步）。</div>
-      </div>
-      <div class="spot">
-        <div class="name">🏋️ 蹦极/跳伞（可选）</div>
-        <div class="type activity">极限运动</div>
-        <div class="desc">卡瓦劳大桥是商业蹦极发源地（43m）。跳伞可选 12000/15000 英尺，看雪山跳伞是终生难忘的体验。</div>
-        <div class="tip">💡 跳伞约NZ$349-449，蹦极NZ$205。4人同行可能有团体折扣</div>
-      </div>
-      <div class="spot">
-        <div class="name">🛥️ TSS Earnslaw 蒸汽船</div>
-        <div class="type cultural">百年蒸汽船</div>
-        <div class="desc">1912年运营至今的蒸汽船，湖上巡游+瓦尔特峰牧场午餐，能看到工人铲煤的老式引擎。非常有情调。</div>
-      </div>
-      <div class="spot">
-        <div class="name">🛍️ 皇后镇中心漫步</div>
-        <div class="type cultural">城市闲逛</div>
-        <div class="desc">湖畔花园、Fergburger 排队、Patagonia 巧克力店、艺术品店…小镇氛围感十足。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 8 -->
-  <div class="day-card">
-    <div class="day-num">DAY 8 · 5月7日</div>
-    <div class="day-title">皇后镇 → 米尔福德峡湾（一日往返）</div>
-    <div class="day-route">🚗 皇后镇→米尔福德 287km/3h50m（单程）</div>
-    <div class="spots-grid">
-      <div class="spot">
-        <div class="name">🌊 米尔福德峡湾 Milford Sound</div>
-        <div class="type scenic">世界第八大奇迹</div>
-        <div class="desc">新西兰第一景点！峡湾巡游2小时，看教冠峰（Mitre Peak）、瀑布群、海豹海豚。秋雨天反而更有氛围（瀑布更壮观）。</div>
-        <div class="tip">💡 路程较远，建议6点出发。也可以选择从皇后镇坐小飞机单程（天气好时超震撼）</div>
-      </div>
-      <div class="spot">
-        <div class="name">🛣️ 米尔福德公路</div>
-        <div class="type scenic">全球最美公路之一</div>
-        <div class="desc">沿途经过镜湖、猴溪、荷马隧道…这条公路本身就是景点。建议预留停车拍照时间。秋色绝美。</div>
-        <div class="tip">💡 Homer Tunnel 单向隧道需等红灯，高峰期等15-20分钟</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 9 -->
-  <div class="day-card">
-    <div class="day-num">DAY 9 · 5月8日</div>
-    <div class="day-title">皇后镇 → 箭镇 → 瓦纳卡</div>
-    <div class="day-route">🚗 皇后镇→箭镇 21km/20m → 瓦纳卡 68km/1h07m</div>
-    <div class="spots-grid">
-      <div class="spot">
-        <div class="name">🍂 箭镇 Arrowtown</div>
-        <div class="type scenic">秋色最佳</div>
-        <div class="desc">4月底-5月初是箭镇秋色高峰期！金黄落叶铺满整个小镇，Arrow River 河畔像油画。还有淘金历史遗迹可逛。</div>
-        <div class="tip">💡 这是你们此行最美的秋色！建议上午光线好时去</div>
-      </div>
-      <div class="spot">
-        <div class="name">🌳 瓦纳卡湖 That Wanaka Tree</div>
-        <div class="type scenic">网红打卡</div>
-        <div class="desc">孤独的湖中树是新西兰最著名的拍照点之一。秋天树叶金黄倒映在清澈湖面，比夏天更有意境。</div>
-      </div>
-      <div class="spot">
-        <div class="name">🎭 迷幻世界 Puzzling World</div>
-        <div class="type activity">趣味体验</div>
-        <div class="desc">巨大迷宫+各种视觉错觉房间，超级出片！四个人一起玩迷宫很有趣。</div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Day 10 -->
-  <div class="day-card">
-    <div class="day-num">DAY 10 · 5月9日</div>
-    <div class="day-title">瓦纳卡 → 基督城 → 回程</div>
-    <div class="day-route">🚗 瓦纳卡→皇后镇/基督城 · ✈️ CZ306 奥克兰 21:20起飞 → 广州 5/10 05:05到达 座位43K</div>
-    <div class="spots-grid">
-      <div class="spot">
-        <div class="name">🏔️ 林迪斯关口 Lindis Pass</div>
-        <div class="type scenic">高山公路</div>
-        <div class="desc">瓦纳卡回基督城必经的高山隘口，金色山丘连绵起伏，像新西兰版的「大地调色盘」。</div>
-      </div>
-      <div class="spot">
-        <div class="name">🏛️ 基督城植物园</div>
-        <div class="type scenic">城市休闲</div>
-        <div class="desc">如果回程经基督城，植物园的秋色也很美。附近的 New Regent Street 彩色建筑适合拍照。</div>
-      </div>
-    </div>
-  </div>
+<div class="section-header">
+<div class="icon" style="background:rgba(33,147,176,0.15)">📋</div>
+<div><h2>每日行程</h2><div class="desc">10天详细安排 · 含景点距离和导航链接</div></div>
 </div>
 
+<!-- Day 1 -->
+<div class="day-card">
+<div class="day-header"><div class="day-num">01</div><div><div class="day-title">抵达奥克兰 · 城市探索</div><div class="day-date">4月30日 周四 · 15:40抵达</div></div></div>
+<div class="day-body">
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Sky+Tower+Auckland" target="_blank">天空塔 Sky Tower</a></div>
+<div class="attr-desc">南半球最高建筑（328m），360°俯瞰奥克兰全景。可选SkyWalk/SkyJump极限体验。秋天日落约17:15，建议下午4点上去。</div>
+<span class="attr-dist">🚗 机场→天空塔 约25km / 30min</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Auckland+Airport/Sky+Tower+Auckland" target="_blank">📍 导航到这里</a>
+<img class="attr-img" src="https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=800&q=80" alt="Sky Tower Auckland" loading="lazy">
+</div>
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Mount+Eden+Auckland" target="_blank">伊甸山 Mount Eden</a></div>
+<div class="attr-desc">奥克兰最高火山口（196m），免费！日落金光洒满城市的最佳拍照点。火山口步道很短，20分钟登顶。</div>
+<span class="attr-dist">🚗 天空塔→伊甸山 约5km / 10min</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Sky+Tower+Auckland/Mount+Eden+Auckland" target="_blank">📍 导航到这里</a>
+</div>
+</div>
+</div>
+
+<!-- Day 2 -->
+<div class="day-card">
+<div class="day-header"><div class="day-num">02</div><div><div class="day-title">霍比屯 → 罗托鲁瓦</div><div class="day-date">5月1日 周五 · 自驾日</div></div></div>
+<div class="day-body">
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Hobbiton+Movie+Set+Matamata" target="_blank">霍比屯电影取景地 Hobbiton</a></div>
+<div class="attr-desc">《指环王》和《霍比特人》的夏尔！44个霍比特人洞穴、绿龙酒馆，含一杯免费姜汁啤酒。门票NZ$89，建议提前官网订。全程导览约2小时。</div>
+<span class="attr-dist">🚗 奥克兰→霍比屯 约167km / 1h53m</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Auckland/Hobbiton+Movie+Set+Matamata" target="_blank">📍 导航到这里</a>
+<img class="attr-img" src="https://images.unsplash.com/photo-1602085176658-30c6278f07e0?w=800&q=80" alt="Hobbiton Movie Set" loading="lazy">
+<div class="attr-video"><iframe src="https://www.youtube.com/embed/ihqouGmra9g" allowfullscreen loading="lazy"></iframe></div>
+</div>
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Redwoods+Treewalk+Rotorua" target="_blank">红木森林 Redwoods Treewalk</a></div>
+<div class="attr-desc">走在30米高的树冠吊桥上穿越百年红杉林。白天免费步道 + 夜间灯光秀（NZ$35，强烈推荐！30盏灯笼照亮森林，超梦幻）。</div>
+<span class="attr-dist">🚗 霍比屯→红木森林 约69km / 1h</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Hobbiton+Movie+Set/Redwoods+Treewalk+Rotorua" target="_blank">📍 导航到这里</a>
+<img class="attr-img" src="https://images.unsplash.com/photo-1542273917363-3b1817f69a2d?w=800&q=80" alt="Redwood Forest Rotorua" loading="lazy">
+</div>
+</div>
+</div>
+
+<!-- Day 3 -->
+<div class="day-card">
+<div class="day-header"><div class="day-num">03</div><div><div class="day-title">胡卡瀑布 → 陶波湖</div><div class="day-date">5月2日 周六</div></div></div>
+<div class="day-body">
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Huka+Falls+Taupo" target="_blank">胡卡瀑布 Huka Falls</a></div>
+<div class="attr-desc">新西兰最壮观的瀑布！每秒22万升水量冲入峡谷，水色从翡翠绿变成奶蓝色。免费参观，步道往返约30分钟。</div>
+<span class="attr-dist">🚗 罗托鲁瓦→胡卡瀑布 约80km / 59min</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Rotorua/Huka+Falls+Taupo" target="_blank">📍 导航到这里</a>
+<img class="attr-img" src="https://images.unsplash.com/photo-1578950435899-d1c1bf932ab2?w=800&q=80" alt="Huka Falls" loading="lazy">
+</div>
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Lake+Taupo+New+Zealand" target="_blank">陶波湖 Lake Taupo</a></div>
+<div class="attr-desc">新西兰最大湖泊（面积=新加坡），坐在湖边看远山和落日。推荐坐船去看毛利岩雕（Mine Bay Maori Rock Carvings），约1.5小时。</div>
+<span class="attr-dist">🚗 胡卡瀑布→陶波湖畔 约8km / 10min</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Huka+Falls/Lake+Taupo" target="_blank">📍 导航到这里</a>
+<img class="attr-img" src="https://images.unsplash.com/photo-1589802829985-817e51171b92?w=800&q=80" alt="Lake Taupo" loading="lazy">
+</div>
+</div>
+</div>
+
+<!-- Day 4 -->
+<div class="day-card">
+<div class="day-header"><div class="day-num">04</div><div><div class="day-title">陶波 → 惠灵顿（长途日）</div><div class="day-date">5月3日 周日 · 最长路段 373km</div></div></div>
+<div class="day-body">
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Te+Papa+Museum+Wellington" target="_blank">Te Papa 国家博物馆</a></div>
+<div class="attr-desc">新西兰国家博物馆，6层楼！毛利文化、地震模拟、巨型鱿鱼标本。免费入场（部分特展收费）。建议预留2-3小时。</div>
+<span class="attr-dist">🚗 陶波→惠灵顿 约373km / 4h38m</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Taupo/Te+Papa+Museum+Wellington" target="_blank">📍 导航到这里</a>
+<img class="attr-img" src="https://images.unsplash.com/photo-1610848790891-1a6a54955d55?w=800&q=80" alt="Te Papa Museum" loading="lazy">
+</div>
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Cuba+Street+Wellington" target="_blank">古巴街 Cuba Street</a></div>
+<div class="attr-desc">惠灵顿最有活力的街区！独立咖啡店、vintage古着店、街头艺术。晚上去 Courtenay Place 吃饭。</div>
+<span class="attr-dist">🚕 Te Papa→古巴街 约1km / 步行12min</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Te+Papa+Museum/Cuba+Street+Wellington" target="_blank">📍 导航到这里</a>
+</div>
+</div>
+</div>
+
+<!-- Day 5 -->
+<div class="day-card">
+<div class="day-header"><div class="day-num">05</div><div><div class="day-title">✈️ 飞基督城 → 蒂卡波湖</div><div class="day-date">5月4日 周一</div></div></div>
+<div class="day-body">
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Church+of+the+Good+Shepherd+Lake+Tekapo" target="_blank">好牧羊人教堂 Church of the Good Shepherd</a></div>
+<div class="attr-desc">湖边石头小教堂+湖蓝色蒂卡波湖+南阿尔卑斯雪山 = 新西兰最经典的明信片画面。秋天鲁冰花虽然没了，但秋色别有韵味。晚上是国际暗夜保护区，观星极佳！</div>
+<span class="attr-dist">✈️ 惠灵顿→基督城 约1h · 🚗 基督城→蒂卡波 约226km / 2h54m</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Christchurch+Airport/Church+of+the+Good+Shepherd+Lake+Tekapo" target="_blank">📍 导航到这里</a>
+<img class="attr-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/0/05/Church_of_the_Good_Shepherd_Lake_Tekapo.jpg/1280px-Church_of_the_Good_Shepherd_Lake_Tekapo.jpg" alt="Church of the Good Shepherd" loading="lazy">
+<div class="attr-video"><iframe src="https://www.youtube.com/embed/yx6jgTlJfnk" allowfullscreen loading="lazy"></iframe></div>
+</div>
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Mt+John+Observatory+Lake+Tekapo" target="_blank">约翰山天文台 Mt John Observatory</a></div>
+<div class="attr-desc">南半球最佳观星点之一！夜间观星团NZ$89/人。白天可以开车上山（NZ$8停车费），山顶Astro Cafe视野超棒。</div>
+<span class="attr-dist">🚗 好牧羊人教堂→约翰山 约5km / 8min</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Church+of+the+Good+Shepherd/Mt+John+Observatory+Lake+Tekapo" target="_blank">📍 导航到这里</a>
+</div>
+</div>
+</div>
+
+<!-- Day 6 -->
+<div class="day-card">
+<div class="day-header"><div class="day-num">06</div><div><div class="day-title">库克山 Hooker Valley → 皇后镇</div><div class="day-date">5月5日 周二</div></div></div>
+<div class="day-body">
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Hooker+Valley+Track+Mount+Cook" target="_blank">Hooker Valley 步道</a></div>
+<div class="attr-desc">新西兰最美日间徒步！平坦好走（往返10km/3-4h），三座吊桥+冰川湖+库克山雪峰全程相伴。免费！秋天人少，建议早上出发。</div>
+<span class="attr-dist">🚗 蒂卡波→库克山步道起点 约106km / 1h20m</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Lake+Tekapo/Hooker+Valley+Track" target="_blank">📍 导航到这里</a>
+<img class="attr-img" src="https://images.unsplash.com/photo-1469521669194-babb45599def?w=800&q=80" alt="Hooker Valley Track" loading="lazy">
+<div class="attr-video"><iframe src="https://www.youtube.com/embed/ZJWTYalfJAY" allowfullscreen loading="lazy"></iframe></div>
+</div>
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Lake+Pukaki+Viewpoint" target="_blank">普卡基湖 Lake Pukaki</a></div>
+<div class="attr-desc">「牛奶蓝」冰川湖！去库克山路上必经，记得在湖边观景台停车拍照。湖水颜色随光线变化，像打翻了蓝色牛奶。</div>
+<span class="attr-dist">🚗 就在去库克山的公路旁 · 路过必停！</span>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Lake+Pukaki+Viewpoint" target="_blank">📍 导航到这里</a>
+</div>
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Queenstown+New+Zealand" target="_blank">皇后镇 Queenstown</a></div>
+<div class="attr-desc">下午驱车前往皇后镇，傍晚漫步湖边小镇。</div>
+<span class="attr-dist">🚗 库克山→皇后镇 约256km / 3h08m</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Mount+Cook+Village/Queenstown" target="_blank">📍 导航到这里</a>
+<img class="attr-img" src="https://images.unsplash.com/photo-1506973035872-a4ec16b8e8d9?w=800&q=80" alt="Queenstown" loading="lazy">
+</div>
+</div>
+</div>
+
+<!-- Day 7 -->
+<div class="day-card">
+<div class="day-header"><div class="day-num">07</div><div><div class="day-title">皇后镇 · 冒险与探索</div><div class="day-date">5月6日 周三</div></div></div>
+<div class="day-body">
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Skyline+Queenstown+Gondola" target="_blank">天际缆车 + Luge 滑板车</a></div>
+<div class="attr-desc">缆车登上Bob's Peak（NZ$44），在山顶玩Luge滑板车冲下山（NZ$59含缆车+3次Luge）。山顶观景台能看到整个瓦卡蒂普湖和远山。</div>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Skyline+Queenstown+Gondola" target="_blank">📍 导航到这里</a>
+</div>
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=AJ+Hackett+Bungy+Queenstown" target="_blank">蹦极 / 跳伞 （可选）</a></div>
+<div class="attr-desc">世界蹦极发源地！Kawarau Bridge蹦极NZ$205，Nevis蹦极NZ$275（134m！）。跳伞15000英尺NZ$399。根据胆量自由选择！</div>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=AJ+Hackett+Bungy+Kawarau+Bridge" target="_blank">📍 导航到这里</a>
+<div class="attr-video"><iframe src="https://www.youtube.com/embed/rGKf1NhtJ1o" allowfullscreen loading="lazy"></iframe></div>
+</div>
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Queenstown+Gardens" target="_blank">皇后镇花园 Queenstown Gardens</a></div>
+<div class="attr-desc">湖边免费公园，秋天黄叶红叶太美了。适合下午悠闲散步+拍照。</div>
+<span class="attr-dist">🚶 镇中心步行 约5min</span>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Queenstown+Gardens" target="_blank">📍 导航到这里</a>
+</div>
+</div>
+</div>
+
+<!-- Day 8 -->
+<div class="day-card">
+<div class="day-header"><div class="day-num">08</div><div><div class="day-title">米尔福德峡湾 · 世界第八大奇迹</div><div class="day-date">5月7日 周四 · 早出晚归</div></div></div>
+<div class="day-body">
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Milford+Sound+New+Zealand" target="_blank">米尔福德峡湾 Milford Sound</a></div>
+<div class="attr-desc">新西兰必去NO.1！高耸的峡壁、飞流直下的瀑布、偶遇海豚和海豹。峡湾巡游约2小时（NZ$80-120），雨天也很壮观（瀑布更多！）。<br><br>⚠️ 这条路是死胡同，需要原路返回。全程往返约574km/8h，建议早上6:30出发。沿途经过镜湖、荷马隧道，风景绝美。</div>
+<span class="attr-dist">🚗 皇后镇→米尔福德 约287km / 3h50m（单程）</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Queenstown/Milford+Sound" target="_blank">📍 导航到这里</a>
+<div class="attr-video"><iframe src="https://www.youtube.com/embed/40tPmXU2u10" allowfullscreen loading="lazy"></iframe></div>
+</div>
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Mirror+Lakes+Milford+Road" target="_blank">镜湖 Mirror Lakes</a></div>
+<div class="attr-desc">去米尔福德路上的绝美停车点！湖面倒映出完美的雪山倒影。步道仅5分钟。</div>
+<span class="attr-dist">🚗 在去米尔福德的路上 · 停车拍照即可</span>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Mirror+Lakes+Milford+Road" target="_blank">📍 导航到这里</a>
+</div>
+</div>
+</div>
+
+<!-- Day 9 -->
+<div class="day-card">
+<div class="day-header"><div class="day-num">09</div><div><div class="day-title">箭镇秋色 🍂 → 瓦纳卡</div><div class="day-date">5月8日 周五 · 秋叶巅峰！</div></div></div>
+<div class="day-body">
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Arrowtown+New+Zealand" target="_blank">箭镇 Arrowtown 🍂</a></div>
+<div class="attr-desc">整条街被金色红色秋叶覆盖，这就是你来新西兰的秋天最值得的一天！上午10点前光线最好。Buckingham Street 和 Arrow River 是最佳拍照点。还有中国矿工定居点遗址（Chinese Settlement）。</div>
+<span class="attr-dist">🚗 皇后镇→箭镇 约20km / 20min</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Queenstown/Arrowtown" target="_blank">📍 导航到这里</a>
+<img class="attr-img" src="https://images.unsplash.com/photo-1581791538302-03537b9c97bf?w=800&q=80" alt="Arrowtown Autumn" loading="lazy">
+</div>
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=That+Wanaka+Tree" target="_blank">瓦纳卡孤独树 That Wanaka Tree</a></div>
+<div class="attr-desc">全世界被拍得最多的树之一！一棵柳树孤独地长在湖中。日出时最美（但秋天日出7点，可以接受）。去瓦纳卡的路上经过Crown Range Road，是新西兰最高公路，风景震撼。</div>
+<span class="attr-dist">🚗 箭镇→瓦纳卡 约68km / 55min (via Crown Range)</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Arrowtown/That+Wanaka+Tree" target="_blank">📍 导航到这里</a>
+<img class="attr-img" src="https://images.unsplash.com/photo-1502003148287-a82ef80a6b2c?w=800&q=80" alt="That Wanaka Tree" loading="lazy">
+</div>
+</div>
+</div>
+
+<!-- Day 10 -->
+<div class="day-card">
+<div class="day-header"><div class="day-num">10</div><div><div class="day-title">瓦纳卡 → 基督城 → 回家</div><div class="day-date">5月9日 周六 · 返程日</div></div></div>
+<div class="day-body">
+<div class="attraction">
+<div class="attr-name">📍 <a href="https://www.google.com/maps/search/?api=1&query=Lindis+Pass+New+Zealand" target="_blank">林迪斯关口 Lindis Pass</a></div>
+<div class="attr-desc">回基督城途中的绝美山间公路！金色的草甸连绵起伏，秋天颜色更浓。适合在观景台停车拍几张。</div>
+<span class="attr-dist">🚗 瓦纳卡→林迪斯关口 约70km / 55min</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Wanaka/Lindis+Pass" target="_blank">📍 导航到这里</a>
+</div>
+<div class="attraction">
+<div class="attr-name">✈️ 回程航班</div>
+<div class="attr-desc">下午到达基督城，还车后飞奥克兰。在奥克兰机场办退税（如需）后，晚上21:20登机回广州。<br><strong>CZ306 奥克兰 21:20 → 广州 5/10 05:05到达 · 座位43K</strong></div>
+<span class="attr-dist">🚗 瓦纳卡→基督城 约340km / 4h30m · ✈️ 基督城→奥克兰 约1h15m</span>
+<a class="map-link" href="https://www.google.com/maps/dir/Wanaka/Christchurch+Airport" target="_blank">📍 导航到这里</a>
+</div>
+</div>
+</div>
+</div>
 <!-- Food Section -->
 <div id="food" class="section">
-  <div class="section-header">
-    <div class="icon" style="background:rgba(255,152,0,0.15)">🍽️</div>
-    <div><h2>美食推荐</h2><div class="desc">每个城市精选 · 适合闺蜜聚餐</div></div>
-  </div>
-  <div class="food-grid">
-    <div class="food-card">
-      <div class="city">奥克兰 AUCKLAND</div>
-      <div class="fname">Depot Eatery</div>
-      <div class="cuisine">🦪 海鲜 · 新西兰料理</div>
-      <div class="fdesc">Al Brown 主理，主打新西兰生蚝、小食和海鲜。开放式厨房氛围棒，是当地人最爱的餐厅之一。</div>
-      <div class="price">💰 人均 NZ$40-60</div>
-    </div>
-    <div class="food-card">
-      <div class="city">奥克兰 AUCKLAND</div>
-      <div class="fname">Amano</div>
-      <div class="cuisine">🍝 意大利 · 现代新西兰</div>
-      <div class="fdesc">自制意面和面包超赞，工业风装修很适合拍照。早午餐和晚餐都值得一试。Britomart 区域。</div>
-      <div class="price">💰 人均 NZ$45-70</div>
-    </div>
-    <div class="food-card">
-      <div class="city">罗托鲁瓦 ROTORUA</div>
-      <div class="fname">Eat Street 美食街</div>
-      <div class="cuisine">🍢 多国美食集合</div>
-      <div class="fdesc">Tutanekai Street 上的美食一条街，从毛利 Hangi 传统地坑烤肉到泰国菜都有。推荐 Pig & Whistle 尝本地精酿。</div>
-      <div class="price">💰 人均 NZ$20-40</div>
-    </div>
-    <div class="food-card">
-      <div class="city">惠灵顿 WELLINGTON</div>
-      <div class="fname">Prefab Eatery</div>
-      <div class="cuisine">☕ 咖啡 · 早午餐</div>
-      <div class="fdesc">惠灵顿是「世界咖啡之都」，Prefab 是城中最受欢迎的咖啡馆之一。Flat White 的发源地就在新西兰！</div>
-      <div class="price">💰 人均 NZ$18-30</div>
-    </div>
-    <div class="food-card">
-      <div class="city">惠灵顿 WELLINGTON</div>
-      <div class="fname">Logan Brown</div>
-      <div class="cuisine">🥩 Fine Dining · 新西兰</div>
-      <div class="fdesc">惠灵顿最著名的高级餐厅，在百年银行建筑内。新西兰羊排和鹿肉是招牌。适合闺蜜庆祝晚餐。</div>
-      <div class="price">💰 人均 NZ$80-120</div>
-    </div>
-    <div class="food-card">
-      <div class="city">皇后镇 QUEENSTOWN</div>
-      <div class="fname">Fergburger</div>
-      <div class="cuisine">🍔 传奇汉堡</div>
-      <div class="fdesc">全球最有名的汉堡店之一！巨大手工汉堡，24小时排队。Sweet Bambi（鹿肉堡）和 Codfather（鳕鱼堡）是必点。</div>
-      <div class="price">💰 人均 NZ$15-25</div>
-    </div>
-    <div class="food-card">
-      <div class="city">皇后镇 QUEENSTOWN</div>
-      <div class="fname">Botswana Butchery</div>
-      <div class="cuisine">🥩 牛排 · 精致西餐</div>
-      <div class="fdesc">湖景位绝佳的高级牛排馆。wagyu牛排、羊架都是招牌，酒单也很出色。四人聚餐首选。</div>
-      <div class="price">💰 人均 NZ$70-100</div>
-    </div>
-    <div class="food-card">
-      <div class="city">皇后镇 QUEENSTOWN</div>
-      <div class="fname">Patagonia Chocolates</div>
-      <div class="cuisine">🍫 甜品 · 巧克力冰淇淋</div>
-      <div class="fdesc">手工巧克力和冰淇淋，口味超多。逛街累了来一杯热巧+冰淇淋华夫饼，幸福感爆棚。</div>
-      <div class="price">💰 人均 NZ$10-20</div>
-    </div>
-    <div class="food-card">
-      <div class="city">蒂卡波 TEKAPO</div>
-      <div class="fname">Kohan Restaurant</div>
-      <div class="cuisine">🍱 日式料理</div>
-      <div class="fdesc">蒂卡波湖畔的日料，窗外就是绝美湖景。三文鱼来自附近的高山三文鱼养殖场（Mount Cook Alpine Salmon），超新鲜。</div>
-      <div class="price">💰 人均 NZ$30-50</div>
-    </div>
-    <div class="food-card">
-      <div class="city">瓦纳卡 WANAKA</div>
-      <div class="fname">Francesca's Italian Kitchen</div>
-      <div class="cuisine">🍕 意大利 · 湖景</div>
-      <div class="fdesc">瓦纳卡湖畔意式餐厅，手工披萨和意面，配湖景和秋色无敌。建议傍晚去看日落。</div>
-      <div class="price">💰 人均 NZ$35-55</div>
-    </div>
-  </div>
+<div class="section-header">
+<div class="icon" style="background:rgba(76,175,80,0.15)">🍽️</div>
+<div><h2>美食推荐</h2><div class="desc">每城精选 · 含导航链接</div></div>
 </div>
 
-<!-- Map Section -->
-<div id="map" class="section">
-  <div class="section-header">
-    <div class="icon" style="background:rgba(76,175,80,0.15)">🗺️</div>
-    <div><h2>路线地图</h2><div class="desc">Google Maps 嵌入 · 可交互缩放</div></div>
-  </div>
-
-  <div class="map-container">
-    <iframe src="https://www.google.com/maps/d/embed?mid=1HfG0FPtWW-E6qKdXblP5GjD0D3OU&ehbc=2E312F&z=5" allowfullscreen loading="lazy"></iframe>
-  </div>
-
-  <p style="text-align:center; color:#7a96b2; font-size:0.85em; margin:10px 0 20px">
-    ↑ 如嵌入地图无法显示，可直接点击下方 Google Maps 链接查看完整路线
-  </p>
-
-  <div style="text-align:center; margin: 15px 0 30px">
-    <a href="https://www.google.com/maps/dir/Auckland,+New+Zealand/Hobbiton+Movie+Set,+501+Buckland+Road,+Hinuera,+Matamata/Rotorua,+New+Zealand/Taupo,+New+Zealand/Wellington,+New+Zealand" 
-       target="_blank"
-       style="display:inline-block; padding:12px 28px; background:linear-gradient(135deg,#2193b0,#6dd5ed); color:#0f1729; font-weight:600; border-radius:12px; text-decoration:none; margin:5px;">
-      🗺️ 北岛路线 · Google Maps
-    </a>
-    <a href="https://www.google.com/maps/dir/Christchurch,+New+Zealand/Lake+Tekapo,+New+Zealand/Mount+Cook+Village,+New+Zealand/Queenstown,+New+Zealand/Milford+Sound,+New+Zealand/Arrowtown,+New+Zealand/Wanaka,+New+Zealand" 
-       target="_blank"
-       style="display:inline-block; padding:12px 28px; background:linear-gradient(135deg,#2193b0,#6dd5ed); color:#0f1729; font-weight:600; border-radius:12px; text-decoration:none; margin:5px;">
-      🗺️ 南岛路线 · Google Maps
-    </a>
-  </div>
+<h3 style="color:#6dd5ed;margin-bottom:16px;font-size:1em">🏙️ 奥克兰 Auckland</h3>
+<div class="rest-grid">
+<div class="rest-card">
+<img class="rest-img" src="https://s3-media0.fl.yelpcdn.com/bphoto/1kILn0NHf387tnOnEtOcHA/348s.jpg" alt="Depot Eatery" loading="lazy">
+<div class="rest-body">
+<div class="rest-name">Depot Eatery & Oyster Bar 🦪</div>
+<div class="rest-info">主厨Al Brown的招牌餐厅，新鲜生蚝和小食。人均NZ$40-60</div>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Depot+Eatery+Auckland+86+Federal+St" target="_blank" style="margin-top:8px;display:inline-flex">📍 86 Federal St</a>
+</div>
+</div>
+<div class="rest-card">
+<img class="rest-img" src="https://s3-media0.fl.yelpcdn.com/bphoto/ly6kyDFm6iyWR9eeodGuMw/348s.jpg" alt="Amano" loading="lazy">
+<div class="rest-body">
+<div class="rest-name">Amano 🍝</div>
+<div class="rest-info">意式餐厅+面包房，手工意面和牛角包是招牌。早午餐超棒。人均NZ$35-55</div>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Amano+Restaurant+Auckland+66+Tyler+St" target="_blank" style="margin-top:8px;display:inline-flex">📍 66 Tyler St, Britomart</a>
+</div>
+</div>
 </div>
 
-<!-- Routes Table -->
-<div id="routes" class="section">
-  <div class="section-header">
-    <div class="icon" style="background:rgba(156,39,176,0.15)">🧭</div>
-    <div><h2>路线规划明细</h2><div class="desc">基于 Google Maps 实时路线数据</div></div>
-  </div>
-
-  <div style="overflow-x:auto">
-    <table class="route-table">
-      <tr><th>路段</th><th>距离</th><th>驾驶时间</th><th>建议</th></tr>
-      <tr><td>🏙️ 奥克兰 → 霍比屯</td><td>167 km</td><td>1h 53m</td><td>1号高速南下，路况好</td></tr>
-      <tr><td>🧙 霍比屯 → 罗托鲁瓦</td><td>69 km</td><td>1h 00m</td><td>5号公路，轻松</td></tr>
-      <tr><td>♨️ 罗托鲁瓦 → 陶波</td><td>80 km</td><td>59m</td><td>沿5号公路南下</td></tr>
-      <tr><td>🌋 陶波 → 惠灵顿</td><td>373 km</td><td>4h 38m</td><td>最长路段，建议中途在Palmerston North休息</td></tr>
-      <tr><td>✈️ 惠灵顿 → 基督城</td><td>飞行</td><td>1h</td><td>推荐飞行（NZ$80-150），省6+小时渡轮</td></tr>
-      <tr><td>⛪ 基督城 → 蒂卡波</td><td>226 km</td><td>2h 54m</td><td>经77号/8号公路，风景优美</td></tr>
-      <tr><td>🏔️ 蒂卡波 → 库克山 → 皇后镇</td><td>256 km</td><td>3h 08m</td><td>普卡基湖沿线是精华！</td></tr>
-      <tr><td>🌊 皇后镇 → 米尔福德峡湾</td><td>287 km</td><td>3h 50m</td><td>单程！全天往返，早出发</td></tr>
-      <tr><td>🍂 皇后镇 → 瓦纳卡</td><td>68 km</td><td>1h 07m</td><td>经皇冠山脉公路</td></tr>
-    </table>
-  </div>
-
-  <div style="background:rgba(255,255,255,0.04); border-radius:14px; padding:20px; margin-top:20px">
-    <h3 style="margin-bottom:10px">🚗 自驾总里程估算</h3>
-    <p style="color:#9bb5cc; font-size:0.9em; line-height:1.8">
-      北岛段：约 <strong>689 km</strong>（奥克兰→惠灵顿）<br>
-      南岛段：约 <strong>1,165 km</strong>（基督城→蒂卡波→皇后镇→米尔福德→瓦纳卡→基督城）<br>
-      <strong>总计约 1,854 km</strong> · 按新西兰油价约 NZ$2.5/L、油耗 8L/100km 估算，油费约 NZ$370（4人分摊 ≈ NZ$93/人）<br>
-      <strong>租车建议：</strong>4人推荐 SUV（如 Toyota RAV4），淡季约 NZ$60-80/天。推荐 Apex / Jucy / Budget。
-    </p>
-  </div>
+<h3 style="color:#6dd5ed;margin:24px 0 16px;font-size:1em">🏛️ 惠灵顿 Wellington</h3>
+<div class="rest-grid">
+<div class="rest-card">
+<img class="rest-img" src="https://images.unsplash.com/photo-1554118811-1e0d58224f24?w=400&q=80" alt="Prefab" loading="lazy">
+<div class="rest-body">
+<div class="rest-name">Prefab Eatery ☕</div>
+<div class="rest-info">惠灵顿最好喝的咖啡之一！工业风空间，自烘咖啡豆+手工面包。人均NZ$15-30</div>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Prefab+Eatery+Wellington+14+Jessie+St" target="_blank" style="margin-top:8px;display:inline-flex">📍 14 Jessie St</a>
+</div>
+</div>
+<div class="rest-card">
+<img class="rest-img" src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?w=400&q=80" alt="Logan Brown" loading="lazy">
+<div class="rest-body">
+<div class="rest-name">Logan Brown 🥩</div>
+<div class="rest-info">惠灵顿顶级fine dining，在百年银行大楼里。招牌paua（鲍鱼）意面和小羊排。人均NZ$70-100</div>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Logan+Brown+Restaurant+Wellington+192+Cuba+St" target="_blank" style="margin-top:8px;display:inline-flex">📍 192 Cuba St</a>
+</div>
+</div>
 </div>
 
+<h3 style="color:#6dd5ed;margin:24px 0 16px;font-size:1em">⛰️ 蒂卡波 Lake Tekapo</h3>
+<div class="rest-grid">
+<div class="rest-card">
+<img class="rest-img" src="https://images.unsplash.com/photo-1579871494447-9811cf80d66c?w=400&q=80" alt="Kohan" loading="lazy">
+<div class="rest-body">
+<div class="rest-name">Kohan Restaurant 🍱</div>
+<div class="rest-info">窗外就是蒂卡波湖！日式料理，高山三文鱼刺身是必点。人均NZ$30-50</div>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Kohan+Restaurant+Lake+Tekapo" target="_blank" style="margin-top:8px;display:inline-flex">📍 SH8, Lake Tekapo</a>
+</div>
+</div>
+</div>
+
+<h3 style="color:#6dd5ed;margin:24px 0 16px;font-size:1em">🏔️ 皇后镇 Queenstown</h3>
+<div class="rest-grid">
+<div class="rest-card">
+<img class="rest-img" src="https://images.unsplash.com/photo-1550547660-d9450f859349?w=400&q=80" alt="Fergburger" loading="lazy">
+<div class="rest-body">
+<div class="rest-name">Fergburger 🍔</div>
+<div class="rest-info">全新西兰最有名的汉堡店！永远在排队，但绝对值得。推荐"Ferg Deluxe"和"Sweet Bambi"。NZ$15-22</div>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Fergburger+Queenstown+42+Shotover+St" target="_blank" style="margin-top:8px;display:inline-flex">📍 42 Shotover St</a>
+</div>
+</div>
+<div class="rest-card">
+<img class="rest-img" src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=400&q=80" alt="Botswana Butchery" loading="lazy">
+<div class="rest-body">
+<div class="rest-name">Botswana Butchery 🥩</div>
+<div class="rest-info">湖景fine dining！在历史建筑里，壁炉+落地窗湖景。推荐牛排和羊排。人均NZ$60-100</div>
+<a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Botswana+Butchery+Queenstown+17+Marine+Parade" target="_blank" style="margin-top:8px;display:inline-flex">📍 17 Marine Parade</a>
+</div>
+</div>
+</div>
+</div>
 <!-- Tips Section -->
 <div id="tips" class="section">
-  <div class="section-header">
-    <div class="icon" style="background:rgba(233,30,99,0.15)">💡</div>
-    <div><h2>实用贴士 & 注意事项</h2><div class="desc">第一次去必看 · 四个女生特别版</div></div>
-  </div>
-  <div class="tips-grid">
-    <div class="tip-card">
-      <div class="tip-icon">🛂</div>
-      <div class="tip-title">签证 & 入境（最重要！）</div>
-      <div class="tip-content">中国护照需提前申请新西兰旅游签证（NZeTA 不适用中国护照）。申请周期约 2-4 周，<strong>建议现在就开始准备</strong>。需要材料：护照、照片、行程单、银行流水、在职证明等。入境需填旅客申报卡。<br><br><strong>⚠️ 新西兰海关超级严格：</strong>任何食物（包括零食、泡面、中药）、户外鞋/帐篷（可能带泥土）、木制品都需要申报。不申报罚款 NZ$400 起！建议不要带任何食物入境。</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🚗</div>
-      <div class="tip-title">自驾须知（安全第一！）</div>
-      <div class="tip-content"><strong>靠左行驶！</strong>这是最容易出错的地方，尤其是转弯和环岛时。需要中国驾照 + NZTA认证翻译件（不是普通公证翻译，必须是 nzta.govt.nz 认可的翻译机构）。<br><br>
-      <strong>重要规则：</strong><br>
-      • 环岛让右方来车<br>
-      • 单车道桥梁（很多！）看标志让行<br>
-      • 限速100km/h，山路实际建议60-80<br>
-      • 不要疲劳驾驶，4人轮流开<br>
-      • 加油站在小镇关门早（有些下午5点关），南岛部分路段100km+没油站<br>
-      • 建议看 drivingtests.co.nz 的视频教程</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🔌</div>
-      <div class="tip-title">电源 & 转换插头</div>
-      <div class="tip-content">新西兰用 <strong>Type I 插头</strong>（三脚斜插，和澳大利亚一样），电压 230V/50Hz。<strong>中国插头不能直接用！</strong>务必带转换插头。建议带一个多口USB充电器 + 1个转换插头即可（4人共用）。</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">💳</div>
-      <div class="tip-title">花费 & 支付</div>
-      <div class="tip-content">信用卡（Visa/Mastercard）基本通用，很多地方支持无接触支付。带少量现金备用（NZ$200左右）。NZ$1 ≈ ¥4.2（参考汇率）。<br><br><strong>预算参考（4人分摊/人）：</strong><br>
-      • 租车：~NZ$20/天/人<br>
-      • 油费：~NZ$93/全程/人<br>
-      • 住宿：~NZ$50-65/晚/人（Airbnb）<br>
-      • 餐饮：~NZ$50-80/天/人<br>
-      • 门票活动：~NZ$300-500/全程/人<br>
-      • 合计约 NZ$2000-2800/人 ≈ ¥8400-11760</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">📱</div>
-      <div class="tip-title">网络 & 通讯</div>
-      <div class="tip-content">到达奥克兰机场后买 <strong>Spark</strong> 预付费 SIM 卡（约 NZ$40/月，含流量和通话），Spark 在南岛信号覆盖最好。<br><br><strong>⚠️ 南岛很多山区完全没有手机信号！</strong>包括米尔福德公路大部分路段、库克山部分区域。<strong>出发前务必下载 Google Maps 离线地图</strong>（选择整个新西兰南岛区域）。建议额外下载 maps.me 做备用。</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">👗</div>
-      <div class="tip-title">穿衣指南</div>
-      <div class="tip-content">秋季早晚温差大（5-16°C），<strong>洋葱式穿法</strong>是关键。<br><br><strong>必备清单：</strong><br>
-      • 防水外套/冲锋衣（最重要！）<br>
-      • 抓绒或轻薄羽绒（叠穿用）<br>
-      • 防水徒步鞋（库克山、峡湾用）<br>
-      • 帽子、手套、围巾（南岛早晚很冷）<br>
-      • 墨镜（紫外线很强！）<br>
-      • 泳衣（罗托鲁瓦温泉用）<br>
-      <br>多带几条漂亮围巾和帽子，秋景拍照超加分！</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">☀️</div>
-      <div class="tip-title">防晒！防晒！防晒！</div>
-      <div class="tip-content"><strong>新西兰紫外线是中国的2-3倍！</strong>因为臭氧层薄 + 空气纯净，即使阴天也会晒伤。<br><br>
-      • 带 SPF50+ 防晒霜，每2小时补涂<br>
-      • 戴帽子和墨镜<br>
-      • 在户外活动时尤其注意<br>
-      • 当地超市也能买到防晒霜（推荐 Cancer Society 品牌）</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🦟</div>
-      <div class="tip-title">沙蝇 Sandfly（必看！）</div>
-      <div class="tip-content"><strong>南岛西海岸和峡湾地区的沙蝇超级烦！</strong>被咬后会痒好几天甚至几周。<br><br>
-      • 带 DEET 成分的驱虫喷雾（国内买好或到新西兰买 Bushman/RID）<br>
-      • 不要在黄昏/傍晚时在湖边/河边久待<br>
-      • 穿长裤长袖能有效防护<br>
-      • 如果被咬，不要抓！涂风油精或当地药房买止痒膏</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">📷</div>
-      <div class="tip-title">拍照 & 打卡指南</div>
-      <div class="tip-content"><strong>最佳光线：</strong>日出后1h 和日落前1h（金色光线）。秋天日落约 17:15。<br><br><strong>必拍清单：</strong><br>
-      • 箭镇秋叶（上午10点前光线最好）<br>
-      • 好牧羊人教堂星空（需三脚架）<br>
-      • That Wanaka Tree（日出最美）<br>
-      • 米尔福德峡湾（阴天也超有氛围）<br>
-      • 普卡基湖公路<br>
-      • 库克山 Hooker Valley 吊桥<br>
-      <br>⚠️ 毛利文化场所拍照前先询问是否允许</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🏨</div>
-      <div class="tip-title">住宿建议</div>
-      <div class="tip-content">4人推荐订 <strong>Airbnb 或 Holiday House</strong>（独栋小屋），比酒店划算且有厨房可以做饭省钱。<br><br>
-      • 皇后镇和蒂卡波建议<strong>提前1个月订</strong><br>
-      • 预算参考：NZ$150-250/晚（4人分）<br>
-      • 平台推荐：Airbnb、Booking.com、Bachcare<br>
-      • 看评价时注意是否提供暖气（秋天南岛晚上很冷！）<br>
-      • 自带洗漱用品（很多民宿不提供）</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🛒</div>
-      <div class="tip-title">超市 & 日用品</div>
-      <div class="tip-content"><strong>主要超市：</strong>Countdown（最大）、New World、PAK'nSAVE（最便宜）。<br><br>
-      • 建议到了先去超市采购零食和早餐食材<br>
-      • 新西兰牛奶、酸奶、牛肉超好吃又便宜<br>
-      • 超市一般到晚上9-10点关门<br>
-      • 小镇超市关门更早，备好物资<br>
-      • 自来水可以直接喝！全国都是</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🆘</div>
-      <div class="tip-title">紧急联系 & 安全</div>
-      <div class="tip-content"><strong>紧急电话：111</strong>（警察、消防、救护车）<br>
-      中国驻新西兰大使馆：+64-4-4721382<br>
-      24小时领事保护：+64-21-528663<br><br>
-      <strong>安全提醒：</strong><br>
-      • 车内不要放贵重物品（热门景点有砸车偷盗）<br>
-      • 徒步前告知住宿方你的路线<br>
-      • 出门前查天气 metservice.com<br>
-      • 买好旅行保险（覆盖医疗和行李丢失）<br>
-      • 晚上山路慢开，注意野生动物横穿</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🌊</div>
-      <div class="tip-title">水上安全</div>
-      <div class="tip-content">新西兰湖泊河流温度很低，即使看起来平静也可能有暗流。<br>
-      • 不建议在不熟悉的湖泊/河流游泳<br>
-      • 峡湾巡游穿暖和，船上风很大<br>
-      • 如果晕船，提前吃晕船药</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🗑️</div>
-      <div class="tip-title">环保意识</div>
-      <div class="tip-content">新西兰人非常注重环保。<br>
-      • <strong>垃圾带走</strong>，不要留在景点<br>
-      • 很多步道有「Leave No Trace」原则<br>
-      • 看到野生动物保持距离，不要投喂<br>
-      • 在指定区域停车和露营<br>
-      • Freedom camping（自由露营）有严格规定，需要 self-contained 车辆</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🛍️</div>
-      <div class="tip-title">购物 & 退税</div>
-      <div class="tip-content"><strong>新西兰没有游客退税制度！</strong>所有商品含 15% GST，无法退回。<br><br>
-      <strong>值得买的：</strong><br>
-      • 绵羊油护肤品（超便宜好用）<br>
-      • 麦卢卡蜂蜜 Manuka Honey（UMF10+以上）<br>
-      • 奶粉（限购政策，每人2罐）<br>
-      • 保健品（Comvita、Swisse）<br>
-      • 羊毛制品（围巾、手套）</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🌐</div>
-      <div class="tip-title">必装APP</div>
-      <div class="tip-content">
-      • <strong>Google Maps</strong>（导航+离线地图）<br>
-      • <strong>CamperMate</strong>（找营地、厕所、加油站）<br>
-      • <strong>MetService</strong>（新西兰天气预报）<br>
-      • <strong>Rankers</strong>（找住宿和活动）<br>
-      • <strong>Waze</strong>（备用导航）<br>
-      • <strong>Google Translate</strong>（虽然是英语国家，但毛利语地名很多）<br>
-      • 提前翻译好常用短语到手机备用</div>
-    </div>
-  </div>
+<div class="section-header">
+<div class="icon" style="background:rgba(233,30,99,0.15)">💡</div>
+<div><h2>实用贴士 & 注意事项</h2><div class="desc">第一次去必看 · 四个女生特别版</div></div>
 </div>
-  <div class="tips-grid">
-    <div class="tip-card">
-      <div class="tip-icon">🛂</div>
-      <div class="tip-title">签证 & 入境</div>
-      <div class="tip-content">中国护照需提前申请新西兰旅游签证（NZeTA 不适用）。申请周期约 2-4 周，建议现在就开始准备。入境需填旅客申报卡，食物/户外装备需申报。</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🚗</div>
-      <div class="tip-title">自驾须知</div>
-      <div class="tip-content">新西兰靠左行驶！需要中国驾照 + NZTA认证翻译件。山路弯道多，不要赶路。让路规则和环岛规则和中国不同，建议看 drivingtests.co.nz 视频。加油站在小镇可能关门早。</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">💳</div>
-      <div class="tip-title">花费 & 支付</div>
-      <div class="tip-content">信用卡（Visa/Mastercard）基本通用。带少量现金备用。NZ$1 ≈ ¥4.2（参考）。ATM 取现方便。小费不强制但 10% 表示感谢。</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">📱</div>
-      <div class="tip-title">网络 & 电话</div>
-      <div class="tip-content">到达后在机场买 Spark 或 2Degrees 预付费 SIM 卡（约 NZ$30-50/月），南岛部分山区无信号。建议提前下载 Google Maps 离线地图。</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">👗</div>
-      <div class="tip-title">穿衣指南</div>
-      <div class="tip-content">秋季早晚温差大（5-16°C），建议洋葱式穿法。必备：防水外套、抓绒/羽绒、徒步鞋、帽子手套（南岛用得上）。多带几条漂亮围巾，秋景拍照利器！</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">📷</div>
-      <div class="tip-title">拍照打卡</div>
-      <div class="tip-content">最佳光线时间：日出后1h 和日落前1h（金色光线）。秋天日落约 17:15。推荐拍照点：箭镇秋叶、好牧羊人教堂星空、That Wanaka Tree、米尔福德峡湾、普卡基湖公路。</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">🏨</div>
-      <div class="tip-title">住宿建议</div>
-      <div class="tip-content">4人推荐订 Airbnb 或 Holiday House（独栋小屋），比酒店划算且有厨房。皇后镇和蒂卡波建议提前1个月订。预算参考：NZ$150-250/晚（4人分）。</div>
-    </div>
-    <div class="tip-card">
-      <div class="tip-icon">⚠️</div>
-      <div class="tip-title">安全提醒</div>
-      <div class="tip-content">新西兰治安好但也要注意：车内不要放贵重物品（旅游热点有砸车偷盗）。户外活动注意天气变化。沙蝇（Sandfly）在峡湾地区很烦，带驱虫喷雾。晚上山路慢开。</div>
-    </div>
-  </div>
+<div class="tips-grid">
+<div class="tip-card"><div class="tip-icon">🛂</div><div class="tip-title">签证 & 入境</div><div class="tip-content">中国护照需提前申请旅游签证，周期2-4周。<strong>现在就要办！</strong><br><br><strong>⚠️ 海关超严：</strong>任何食物（含零食泡面中药）、户外鞋、木制品必须申报。不申报罚NZ$400起！建议不带食物入境。</div></div>
+<div class="tip-card"><div class="tip-icon">🚗</div><div class="tip-title">自驾须知</div><div class="tip-content"><strong>靠左行驶！</strong>需驾照+NZTA认证翻译件。<br>• 环岛让右方来车<br>• 单车道桥看标志让行<br>• 限速100，山路建议60-80<br>• 4人轮流开，避免疲劳驾驶<br>• 小镇加油站关门早<br>• 看 drivingtests.co.nz 视频</div></div>
+<div class="tip-card"><div class="tip-icon">🔌</div><div class="tip-title">转换插头</div><div class="tip-content"><strong>Type I 三脚斜插</strong>（和澳洲一样），230V/50Hz。中国插头不能直接用！带一个多口USB充电器+1个转换插头即可。</div></div>
+<div class="tip-card"><div class="tip-icon">💳</div><div class="tip-title">花费预算</div><div class="tip-content">Visa/Mastercard通用，带NZ$200现金备用。<br><strong>4人分摊/人：</strong><br>• 租车 ~NZ$20/天<br>• 油费 ~NZ$93/全程<br>• 住宿 ~NZ$50-65/晚<br>• 餐饮 ~NZ$50-80/天<br>• 合计约 ¥8,400-11,760/人</div></div>
+<div class="tip-card"><div class="tip-icon">📱</div><div class="tip-title">网络通讯</div><div class="tip-content">买 <strong>Spark</strong> SIM卡（NZ$40/月）南岛信号最好。<br><br><strong>⚠️ 南岛很多山区没信号！</strong>出发前下载Google Maps离线地图+maps.me备用。</div></div>
+<div class="tip-card"><div class="tip-icon">👗</div><div class="tip-title">穿衣指南</div><div class="tip-content">洋葱式穿法：<br>• 防水外套/冲锋衣（必备！）<br>• 抓绒/轻薄羽绒<br>• 防水徒步鞋<br>• 帽子手套围巾<br>• 墨镜（紫外线强）<br>• 泳衣（温泉用）<br>多带围巾帽子，秋景拍照加分！</div></div>
+<div class="tip-card"><div class="tip-icon">☀️</div><div class="tip-title">防晒！防晒！</div><div class="tip-content"><strong>紫外线是中国2-3倍！</strong>臭氧层薄+空气纯净，阴天也晒伤。<br>SPF50+防晒霜每2小时补涂，戴帽子墨镜。推荐Cancer Society品牌。</div></div>
+<div class="tip-card"><div class="tip-icon">🦟</div><div class="tip-title">沙蝇防护</div><div class="tip-content">南岛西海岸和峡湾沙蝇超烦！被咬痒几周。<br>• 带DEET驱虫喷雾<br>• 黄昏别在水边久待<br>• 穿长裤长袖<br>• 被咬别抓，涂风油精</div></div>
+<div class="tip-card"><div class="tip-icon">📷</div><div class="tip-title">拍照指南</div><div class="tip-content"><strong>最佳光线：</strong>日出后/日落前1h<br>秋天日落约17:15<br><strong>必拍：</strong><br>• 箭镇秋叶（上午10点前）<br>• 好牧羊人教堂星空<br>• That Wanaka Tree（日出）<br>• 普卡基湖公路<br>⚠️ 毛利场所先问能否拍照</div></div>
+<div class="tip-card"><div class="tip-icon">🏨</div><div class="tip-title">住宿建议</div><div class="tip-content">4人推荐 Airbnb 独栋小屋，有厨房省钱。<br>• 皇后镇蒂卡波提前1个月订<br>• NZ$150-250/晚（4人分）<br>• 注意是否有暖气！<br>• 自带洗漱用品</div></div>
+<div class="tip-card"><div class="tip-icon">🛒</div><div class="tip-title">超市日用</div><div class="tip-content">Countdown/New World/PAK'nSAVE<br>• 牛奶酸奶牛肉便宜好吃<br>• 到了先采购零食早餐<br>• 小镇超市关门早<br>• <strong>自来水可直接喝！</strong></div></div>
+<div class="tip-card"><div class="tip-icon">🆘</div><div class="tip-title">紧急联系</div><div class="tip-content"><strong>急救电话：111</strong><br>中国大使馆：+64-4-4721382<br>领事保护：+64-21-528663<br><br>• 车内别放贵重物品<br>• 徒步前告知住处路线<br>• 查天气 metservice.com<br>• <strong>买旅行保险！</strong></div></div>
+<div class="tip-card"><div class="tip-icon">🛍️</div><div class="tip-title">购物推荐</div><div class="tip-content"><strong>新西兰没有退税！</strong>含15%GST。<br>值得买：<br>• 绵羊油护肤品<br>• 麦卢卡蜂蜜 UMF10+<br>• 奶粉（限购2罐/人）<br>• 保健品 Comvita<br>• 羊毛围巾手套</div></div>
+<div class="tip-card"><div class="tip-icon">🌐</div><div class="tip-title">必装APP</div><div class="tip-content">• Google Maps（离线地图！）<br>• CamperMate（营地/厕所/加油）<br>• MetService（天气）<br>• Google Translate<br>• maps.me（备用导航）</div></div>
+</div>
 </div>
 
-</div>
+</div><!-- container -->
 
+<!-- Footer -->
 <div class="footer">
-  Made with ❤️ by SureThing · 祝四位女生新西兰之旅愉快！🥝<br>
-  路线数据来源：Google Maps API · 2026年3月
+Made with ❤️ by SureThing · 2026年3月
 </div>
 
 </body>
